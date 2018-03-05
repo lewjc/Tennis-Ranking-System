@@ -84,6 +84,8 @@ while True:
             gender = Menu.choose_gender(0)
             tournament_circuit = Leaderboard.display_overall_money_leaderboard(gender, tournament_circuit)
             continue
+    
+        #added this
 
         # return to previous menu
         elif user_choice == "4":
