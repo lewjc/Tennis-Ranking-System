@@ -57,10 +57,12 @@ while True:
                 current_tournament = Menu.choose_tournament(tournament_circuit)
                 if current_tournament == 0:
                     break
+
                 gender = Menu.choose_gender(current_tournament)
                 if gender == 0:
                     continue
                 break
+                
             if current_tournament == 0:
                 continue
             results = TournamentManager.input_results(current_tournament, gender,

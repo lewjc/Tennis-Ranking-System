@@ -138,8 +138,8 @@ def import_tournaments(file_row_list, male_players, female_players):
 
                     else:
                         continue
+                        
                 # create new tournament object
-
                 current_tournament = Tournament(code, prize_money, male_players, female_players)
                 list_of_tournaments.append(current_tournament)
             else:

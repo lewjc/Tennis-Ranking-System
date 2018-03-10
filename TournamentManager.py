@@ -2,9 +2,13 @@ import FileManager
 import os
 import random
 import QuickSort
+import locale
+
 
 
 def input_results(current_tournament, gender, ranking_points, input_from_file):
+    locale.setlocale( locale.LC_ALL, '' )
+
     # directory is current  folder where file is
     file_dir = os.path.dirname(__file__)
     # get name of first round file, dependent on tournament code
@@ -102,13 +106,16 @@ def input_results(current_tournament, gender, ranking_points, input_from_file):
                 all_player_tournament_points.append(player.player_name)
                 all_player_tournament_points.append(player.tournament_money)
 
+
+    prize_money_string = locale.currency(int(prize_money["1"]), grouping=True)
+
     # output tournament info
-    print("=======================================================")
-    print("\n[{0}] Players: {1} Top-Prize: ${2} Difficulty: {3} \n".format(current_tournament.tournament_code,
+    print("=================================================================")
+    print("\n[{0}] Players: {1} | Top Prize: ${2} | Difficulty: {3} \n".format(current_tournament.tournament_code,
                                                                            len(current_tournament_players),
-                                                                           prize_money["1"],
+                                                                           prize_money_string,
                                                                            tournament_difficulty))
-    print("=======================================================\n")
+    print("=================================================================\n")
     input("--Press ENTER to start--\n")
     # not allocating prise money until round 2
     allocate_prize_money = False
@@ -354,6 +361,7 @@ def input_results(current_tournament, gender, ranking_points, input_from_file):
                     if user_input_choice == "2":
                         input_from_file = True
                         break
+                    
                     else:
                         print("--Invalid Choice--")
                         continue
@@ -374,8 +382,10 @@ def input_results(current_tournament, gender, ranking_points, input_from_file):
                 while True and current_round <= 5:
                     print("\n--[1] To view current ranking points--")
                     print("--[2] To view current prize money--")
+                    print("--[3] Return to menu--")
                     print("--[ENTER] to continue--")
                     user_input = input("-> ")
+                
                     if user_input == "1":
                         print_current_points_ranking(current_tournament_players)
                         print("\n")
@@ -384,6 +394,8 @@ def input_results(current_tournament, gender, ranking_points, input_from_file):
                         print_current_prize_money_ranking(current_tournament_players)
                         print("\n")
                         continue
+                    elif user_input == "3":
+                        return list()
                     else:
                         print("\n")
                         break
@@ -451,11 +463,14 @@ def check_player_won(player_one_score, player_two_score, player_type):
     if player_type == "0":
         if player_one_score != 3 and player_two_score != 3:
             print("--Neither player scored 3 sets--")
+            # there might be an injury 
 
             return False
     else:
         if player_one_score != 2 and player_two_score != 2:
             print("--Neither player scored 2 sets--")
+            # there might be an injury
+            
             return False
 
     return True
